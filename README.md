@@ -50,6 +50,9 @@ Detalhamos os padrões e recursos utilizados para projetar uma arquitetura que �
 
 Kubernetes foi escolhido para facilitar a escalabilidade e resiliência dos serviços.
 
+### Desenho da arquitetura primária proposta
+![Diagrama](/Diagrama.png)
+
 ## Serviços
 
 ### 1. API Gateway - Roteamento e Segurança com Ocelot
