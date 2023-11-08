@@ -1,0 +1,92 @@
+version: '3.7'
+
+services:
+  outboxpublishr:
+    build:
+      context: ./OutboxPublisher/
+      dockerfile: OutboxPublisher/Dockerfile
+    ports:
+      - "8885:80"  
+    networks:
+      - netcommon
+    environment:
+      CONNSTR_ACCOUNT: "Host=postgres;Database=DCM_ACCOUNT;Username=postgres;Password=qazsedcft;"
+      RABBITMQ_DEFAULT_USER: "user"
+      RABBITMQ_DEFAULT_PASS: "qazsedcft"
+
+  reports:
+    build:
+      context: ./Reports/
+      dockerfile: Reports/Dockerfile
+    ports:
+      - "8886:80"  
+    networks:
+      - netcommon
+    environment:
+      CONNSTR_REPORT: "Host=postgres;Database=DCM_REPORT;Username=postgres;Password=qazsedcft;"
+      RABBITMQ_DEFAULT_USER: "user"
+      RABBITMQ_DEFAULT_PASS: "qazsedcft"
+
+  apigateway:
+    build:
+      context: ./APIGateway/
+      dockerfile: APIGateway/Dockerfile
+    ports:
+      - "8887:80"  
+    networks:
+      - netcommon
+
+  identitycontrol:
+    build:
+      context: ./IdentityControl/
+      dockerfile: IdentityControl/Dockerfile
+    ports:
+      - "8888:80" 
+    networks:
+      - netcommon
+    environment:
+      CONNSTR_IDENTITY: "Host=postgres;Database=DCM_IDENTITY;Username=postgres;Password=qazsedcft;"
+      JWT_KEY: "MjE1NDI1NTRhc2ZkYXNkZmpZVWpzY2FzY1lISEhTQURLamthamhkJSU0JjE4NzMmIyY4MjUyKjIzIyghams="
+
+  accountapi:
+    build:
+      context: ./Accounts
+      dockerfile: API/Dockerfile
+    ports:
+      - "8889:80" 
+    networks:
+      - netcommon
+    environment:
+      CONNSTR_ACCOUNT: "Host=postgres;Database=DCM_ACCOUNT;Username=postgres;Password=qazsedcft;"
+   
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: 'postgres'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'qazsedcft'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"
+    networks:
+      - netcommon
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_DEFAULT_USER: "user"
+      RABBITMQ_DEFAULT_PASS: "qazsedcft"
+    ports:
+      - "5672:5672" 
+      - "15672:15672" 
+    networks:
+      - netcommon
+      
+networks:
+  netcommon:
+  
+volumes:
+  postgres-data:

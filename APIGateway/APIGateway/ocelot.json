@@ -1,0 +1,88 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Account",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accountapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Account",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Account/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "accountapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Account/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Post", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "CustomScheme",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Report",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reports",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Report",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "CustomScheme",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Report/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reports",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Report/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Post", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "CustomScheme",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Auth/Login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identitycontrol",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Auth/Login",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Auth/Register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identitycontrol",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/Auth/Register",
+      "UpstreamHttpMethod": [ "Post" ]
+    }
+  ]
+}
