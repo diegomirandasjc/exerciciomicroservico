@@ -131,11 +131,3 @@ Um arquivo `docker-compose.yml` está disponível na pasta principal do projeto 
 3. Execute o seguinte comando para iniciar todos os serviços definidos:
 ```sh
 docker-compose up -d
-
-## Uso da Ferramenta
-
-Uma seção "Como Usar" inclui exemplos práticos para realizar operações comuns e orienta os usuários na interação com o sistema.
-
-## Contribuições
-
-Diretrizes para contribuir para o projeto estão disponíveis para qualquer desenvolvedor que deseje colaborar na melhoria contínua da ferramenta.
